@@ -1,0 +1,145 @@
+$pokedexBgColor: #fe0065;
+$pokedexBorderColor: #000;
+$searchBorderColor: #000;
+$searchBtnBgColor: #fe0065;
+$searchBtnBorderColor: #000;
+$searchBtnColor: #fff;
+$pokemonBgColor: #fff;
+$pokemonBorderColor: #000;
+$pokemonNameBgColor: #98cb98;
+$pokemonNameBorderColor: #000;
+$pokemonStatsBg: #666;
+$pokemonStatsBorder: #000;
+
+.pokedex {
+    min-height: 80vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    min-height: 80vh;
+}
+
+.pokedex-device {
+    background-color: $pokedexBgColor;
+    border: 3px solid $pokedexBorderColor;
+    padding: 20px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    grid-row: 1 / 5;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pokedex-cover {
+    background-color: $pokedexBgColor;
+    border-top: 3px solid $pokedexBorderColor;
+    border-bottom: 3px solid $pokedexBorderColor;
+    border-right: 3px solid $pokedexBorderColor;
+    padding: 20px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    grid-row: 2 / 5;
+    display: grid;
+    grid-template-areas: "stats stats"
+        "type number";
+    gap: 10px;
+}
+
+.search {
+    margin: 0 auto 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.search-text {
+    background: white;
+    border: 3px solid $searchBorderColor;
+    border-radius: 5px;
+    padding: 4px;
+}
+
+.search-btn {
+    background: $searchBtnBgColor;
+    border: 3px solid $searchBtnBorderColor;
+    color: $searchBtnColor;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pokemon-img {
+    background-color: $pokemonBgColor;
+    border-radius: 5px;
+    border: 3px solid $pokemonBorderColor;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.pokemon-name {
+    background-color: $pokemonNameBgColor;
+    border: 3px solid $pokemonBorderColor;
+    width: 300px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.pokemon-stats {
+    background-color: $pokemonStatsBg;
+    border: 3px solid $pokemonStatsBorder;
+    border-radius: 5px;
+    padding: 10px;
+    grid-area: stats;
+}
+
+.pokemon-type {
+    background-color: $pokemonStatsBg;
+    border: 3px solid $pokemonStatsBorder;
+    border-radius: 5px;
+    padding: 10px;
+    grid-area: type;
+    text-align: center;
+}
+
+.pokemon-number {
+    background-color: $pokemonStatsBg;
+    border: 3px solid $pokemonStatsBorder;
+    border-radius: 5px;
+    padding: 10px;
+    grid-area: number;
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+}
+
+.search-history {
+    position: relative;
+}
+
+.search-history-btn {
+    background: $searchBtnBgColor;
+    border: 3px solid $searchBtnBorderColor;
+    color: $searchBtnColor;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 100%;
+}
+
+.search-history-results {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 3px solid black;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.search-history-result {
+    display: block;
+}
