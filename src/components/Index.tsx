@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { GET_POKEMON, SET_LOADING, SHOW_ERROR } from '../actionTypes';
-import { RootState } from '../types';
+import { Pokemon, RootState } from '../types';
 import { searchPokemon } from '../utils/searchPokemon';
 import {Dialog} from './Dialog';
 import './Index.scss'
@@ -58,6 +58,14 @@ export default function Index() {
     }, 100);
   };
 
+  const renderSprite = (obj: Pokemon["sprites"] = {}) => {
+    return Object.values(obj)
+      .filter(obj => typeof obj === "string")
+      .map((sprite, i) => {
+        return <img key={`sprite-${i}`} src={sprite as string | undefined} alt={`Sprite ${i}`} />;
+      });
+  };
+
   return (
     <main className="wrapper">
       <div className="search">
@@ -84,7 +92,13 @@ export default function Index() {
             <div className="pokedex-green" />
           </div>
           <div className="pokemon-img">
-            {pokemon && <img src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${String(pokemon?.id).padStart(3, '0')}.png`} alt={pokemon.name} />}
+            {pokemon && (
+              <>
+                <img src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${String(pokemon?.id).padStart(3, '0')}.png`} alt={pokemon.name} />
+                <div className="pokemon-sprites">
+                  {renderSprite(pokemon.sprites)}
+                </div>
+              </>)}
           </div>
           <div data-testid="name" className="pokemon-name">
             {pokemon && pokemon.name}

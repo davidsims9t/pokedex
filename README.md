@@ -19,3 +19,19 @@ npm install
 ```
 npm test
 ```
+
+## Running dev server
+
+```
+npm run dev
+```
+
+## Building for production
+
+```
+npm run build
+```
+
+## Preview
+
+https://juicy-coach.surge.sh/

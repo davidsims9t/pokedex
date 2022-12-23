@@ -24,6 +24,9 @@ export type Pokemon = {
     species: {
         name: string
     };
+    sprites: {
+        [key: string]: string | null | Object;
+    };
 };
 
 export interface PokedexState {
