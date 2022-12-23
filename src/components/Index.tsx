@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { GET_POKEMON, SHOW_ERROR } from '../actionTypes';
+import { GET_POKEMON, SET_LOADING, SHOW_ERROR } from '../actionTypes';
 import { RootState } from '../types';
 import { searchPokemon } from '../utils/searchPokemon';
 import {Dialog} from './Dialog';
@@ -21,7 +21,12 @@ export default function Index() {
 
   async function updatePokemon(searchText: number | string) {
     try {
+      dispatch({
+        type: SET_LOADING
+      });
+
       const results = await searchPokemon(String(searchText));
+
       dispatch({
         type: GET_POKEMON,
         payload: results
@@ -56,14 +61,14 @@ export default function Index() {
   return (
     <main className="wrapper">
       <div className="search">
-        <input className="search-text" type="text" onFocus={(e) => e.target.select()} onChange={updateSearchText} placeholder="Name / ID" />
-        <button className="search-btn" onClick={updateSearch}>Search</button>
+        <input className="search-text" data-testid="search-text" type="text" onFocus={(e) => e.target.select()} onChange={updateSearchText} placeholder="Name / ID" />
+        <button className="search-btn" data-testid="search-btn" onClick={updateSearch}>Search</button>
         <div className="search-history">
-          <button className="search-history-btn" onClick={() => setViewHistory(!viewHistory)}>View History</button>
-          {viewHistory && <div className="search-history-results">
+          <button data-testid="search-history-btn" className="search-history-btn" onClick={() => setViewHistory(!viewHistory)}>View History</button>
+          {viewHistory && <div data-testid="search-history-results" className="search-history-results">
             {!history.length && <>No history to show</>}
-            {history.map(pokemon => (
-              <a href="javascript:void(0);" onClick={() => updatePokemon(pokemon.name as string | number)} className="search-history-result">
+            {history.map((pokemon, i) => (
+              <a key={`search-${i}`} data-testid={`search-${i}`} href="#" onClick={() => updatePokemon(pokemon.name as string | number)} className="search-history-result">
                 {pokemon.name}
               </a>
             ))}
@@ -79,9 +84,9 @@ export default function Index() {
             <div className="pokedex-green" />
           </div>
           <div className="pokemon-img">
-            {pokemon && <img src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${String(pokemon?.id).padStart(3, '0')}.png`} alt="Pokemon" />}
+            {pokemon && <img src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${String(pokemon?.id).padStart(3, '0')}.png`} alt={pokemon.name} />}
           </div>
-          <div className="pokemon-name">
+          <div data-testid="name" className="pokemon-name">
             {pokemon && pokemon.name}
           </div>
           <div className="pokedex-botton-controls">
@@ -95,7 +100,7 @@ export default function Index() {
           </div>
         </div>
         <div className="pokedex-cover">
-          <div className="pokemon-stats">
+          <div data-testid="stats" className="pokemon-stats">
             {pokemon && (
               <>
                 <div>Weight: {pokemon.weight} kg</div>
@@ -104,21 +109,21 @@ export default function Index() {
             )}
           </div>
           <div className="pokedex-blue-btns">
-            {[...Array(15)].map(btn => <div className="pokedex-blue-btn" />)}
+            {[...Array(15)].map((btn, i) => <div key={`btn-${i}`} className="pokedex-blue-btn" />)}
           </div>
           <div className="pokedex-white-btns" />
           <div className="pokedex-yellow-btn" />
-          <div className="pokemon-type">
+          <div data-testid="type" className="pokemon-type">
             {pokemon && (
               <>
-                <div>{pokemon.types?.[0]?.type?.name}</div>
+                {pokemon.types?.[0]?.type?.name}
               </>
             )}
           </div>
-          <div className="pokemon-number">
+          <div data-testid="number" className="pokemon-number">
             {pokemon && (
               <>
-                <div>#{pokemon.id}</div>
+                #{pokemon.id}
               </>
             )}
           </div>

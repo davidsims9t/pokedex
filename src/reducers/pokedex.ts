@@ -1,6 +1,6 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { Actions, PokedexState, Pokemon } from "../types";
-import { GET_POKEMON, HIDE_ERROR, SHOW_ERROR } from "../actionTypes";
+import { GET_POKEMON, HIDE_ERROR, SHOW_ERROR, SET_LOADING } from "../actionTypes";
 
 const initialState: PokedexState = {
   error: false,
@@ -11,7 +11,7 @@ const initialState: PokedexState = {
 
 export default function(state = initialState, action: PayloadAction<Pokemon, Actions>): PokedexState {
   switch (action.type) {
-    case GET_POKEMON: {
+    case GET_POKEMON:
       return {
         ...state,
         history: [...(state.history || []), state.pokemon].filter(Boolean) as Pokemon[],
@@ -19,7 +19,11 @@ export default function(state = initialState, action: PayloadAction<Pokemon, Act
         isLoading: false,
         error: false
       };
-    };
+    case SET_LOADING:
+      return {
+        ...state,
+        isLoading: true,
+      };
     case SHOW_ERROR:
       return {
         ...state,
