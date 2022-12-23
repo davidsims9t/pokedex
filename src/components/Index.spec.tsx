@@ -1,10 +1,10 @@
-// @ts-nocheck
 import { fireEvent, screen, render } from '@testing-library/react';
 import { test, expect, vi } from 'vitest';
 import Index from "./Index";
 import reducer from "../reducers";
 import { configureStore } from '@reduxjs/toolkit';
 import {Provider} from "react-redux";
+import React from 'react';
 
 const searchPokemon = vi.fn().mockImplementation((pokemon) => {
     switch (pokemon) {
@@ -15,6 +15,23 @@ const searchPokemon = vi.fn().mockImplementation((pokemon) => {
                 id: 1,
                 weight: 100,
                 height: 100,
+                moves: [
+                    {
+                        move: {
+                            name: "kick"
+                        }
+                    }
+                ],
+                species: {
+                    name: "bulbasaur"
+                },
+                abilities: [
+                    {
+                        ability: {
+                            name: "overgrow"
+                        }
+                    }
+                ],
                 types: [
                     {
                         type: {
@@ -30,6 +47,23 @@ const searchPokemon = vi.fn().mockImplementation((pokemon) => {
                 id: 2,
                 weight: 200,
                 height: 200,
+                moves: [
+                    {
+                        move: {
+                            name: "kick"
+                        }
+                    }
+                ],
+                abilities: [
+                    {
+                        ability: {
+                            name: "overgrow"
+                        }
+                    }
+                ],
+                species: {
+                    name: "ivysaur"
+                },
                 types: [
                     {
                         type: {
@@ -65,14 +99,14 @@ test('fetches from pokeapi initially', async () => {
 
     expect(searchPokemon).toHaveBeenCalledWith("1");
 
-    const img = await screen.findByAltText('bulbasaur');
+    const img = await screen.findByAltText('bulbasaur') as any;
     expect(img.src).toBe('https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png');
 
     const name = await screen.findByTestId('name');
     expect(name.innerHTML).toBe('bulbasaur');
 
     const stats = await screen.findByTestId('stats');
-    expect(stats.innerHTML).toBe('<div>Weight: 100 kg</div><div>Height: 100 cm</div>');
+    expect(stats.innerHTML).toBe('<div>Weight: 100 kg</div><div>Height: 100 cm</div><div>Abilities: overgrow</div><div>Moves: kick</div><div>Species: bulbasaur</div>');
 
     const type = await screen.findByTestId('type');
     expect(type.innerHTML).toBe('grass');
@@ -102,14 +136,14 @@ test('can search for pokemon', async () => {
 
     expect(searchPokemon).toHaveBeenCalledWith("2");
 
-    const img = await screen.findByAltText('ivysaur');
+    const img = await screen.findByAltText('ivysaur') as any;
     expect(img.src).toBe('https://assets.pokemon.com/assets/cms2/img/pokedex/full/002.png');
 
     const name = await screen.findByTestId('name');
     expect(name.innerHTML).toBe('ivysaur');
 
     const stats = await screen.findByTestId('stats');
-    expect(stats.innerHTML).toBe('<div>Weight: 200 kg</div><div>Height: 200 cm</div>');
+    expect(stats.innerHTML).toBe('<div>Weight: 200 kg</div><div>Height: 200 cm</div><div>Abilities: overgrow</div><div>Moves: kick</div><div>Species: ivysaur</div>');
 
     const type = await screen.findByTestId('type');
     expect(type.innerHTML).toBe('poison');
@@ -150,14 +184,14 @@ test('has search history that can be revisited', async () => {
 
     expect(searchPokemon).toHaveBeenCalledWith("1");
 
-    const img = await screen.findByAltText('bulbasaur');
+    const img = await screen.findByAltText('bulbasaur') as any;
     expect(img.src).toBe('https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png');
 
     const name = await screen.findByTestId('name');
     expect(name.innerHTML).toBe('bulbasaur');
 
     const stats = await screen.findByTestId('stats');
-    expect(stats.innerHTML).toBe('<div>Weight: 100 kg</div><div>Height: 100 cm</div>');
+    expect(stats.innerHTML).toBe('<div>Weight: 100 kg</div><div>Height: 100 cm</div><div>Abilities: overgrow</div><div>Moves: kick</div><div>Species: bulbasaur</div>');
 
     const type = await screen.findByTestId('type');
     expect(type.innerHTML).toBe('grass');

@@ -94,7 +94,7 @@ $pokemonStatsBorder: #000;
         "buttons buttons"
         "whiteBtns yellowBtn"
         "type number";
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-rows: 1fr 1fr auto auto;
     gap: 10px;
 }
 

@@ -11,6 +11,19 @@ export type Pokemon = {
             name: string
         }
     }[];
+    abilities: {
+        ability: {
+            name: string
+        }
+    }[];
+    moves: {
+        move: {
+            name: string
+        }
+    }[];
+    species: {
+        name: string
+    };
 };
 
 export interface PokedexState {

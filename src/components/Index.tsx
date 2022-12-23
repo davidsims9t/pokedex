@@ -105,6 +105,9 @@ export default function Index() {
               <>
                 <div>Weight: {pokemon.weight} kg</div>
                 <div>Height: {pokemon.height} cm</div>
+                <div>Abilities: {pokemon?.abilities?.map(({ability}) => ability?.name).join(', ')}</div>
+                <div>Moves: {pokemon?.moves?.slice(0, 5).map(({move}) => move?.name).join(', ')}</div>
+                <div>Species: {pokemon?.species?.name}</div>
               </>
             )}
           </div>
@@ -116,7 +119,7 @@ export default function Index() {
           <div data-testid="type" className="pokemon-type">
             {pokemon && (
               <>
-                {pokemon.types?.[0]?.type?.name}
+                {pokemon.types?.slice(0, 2).map(({type}) => type.name).join(' / ')}
               </>
             )}
           </div>
