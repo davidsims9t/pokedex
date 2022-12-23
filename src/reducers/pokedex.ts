@@ -1,22 +1,23 @@
-import { GET_POKEMON, SHOW_ERROR, HIDE_ERROR } from "../actionTypes";
-import { Actions } from "../types";
+import { PayloadAction } from "@reduxjs/toolkit";
+import { Actions, PokedexState, Pokemon } from "../types";
+import { GET_POKEMON, HIDE_ERROR, SHOW_ERROR } from "../actionTypes";
 
-const initialState = {
+const initialState: PokedexState = {
   error: false,
-  pokemon: null,
+  pokemon: undefined,
   isLoading: false,
   history: []
 };
 
-export default function(state = initialState, action: Actions) {
+export default function(state = initialState, action: PayloadAction<Pokemon, Actions>): PokedexState {
   switch (action.type) {
     case GET_POKEMON: {
       return {
         ...state,
-        history: [...state.history, state.pokemon].filter(Boolean),
+        history: [...(state.history || []), state.pokemon].filter(Boolean) as Pokemon[],
         pokemon: action.payload,
         isLoading: false,
-        error: null
+        error: false
       };
     };
     case SHOW_ERROR:

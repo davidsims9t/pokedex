@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { GET_POKEMON, SHOW_ERROR } from '../actionTypes';
+import { RootState } from '../types';
 import { searchPokemon } from '../utils/searchPokemon';
 import {Dialog} from './Dialog';
 import './Index.scss'
@@ -8,11 +9,11 @@ import './Index.scss'
 let timeout;
 
 export default function Index() {
-  const pokemon = useSelector((state) => {
-    return state.pokedex.pokemon
+  const pokemon = useSelector((state: RootState) => {
+    return state.pokedex.pokemon;
   })
-  const history = useSelector((state) => {
-    return state.pokedex.history
+  const history = useSelector((state: RootState) => {
+    return state.pokedex.history;
   })
   const dispatch = useDispatch();
   const [searchText, setSearchText] = useState('');
@@ -44,6 +45,8 @@ export default function Index() {
   };
 
   const updateSearch = () => {
+    if (!searchText) return;
+
     clearTimeout(timeout);
     timeout = setTimeout(async () => {
       await updatePokemon(searchText as number | string);
@@ -58,6 +61,7 @@ export default function Index() {
         <div className="search-history">
           <button className="search-history-btn" onClick={() => setViewHistory(!viewHistory)}>View History</button>
           {viewHistory && <div className="search-history-results">
+            {!history.length && <>No history to show</>}
             {history.map(pokemon => (
               <a href="javascript:void(0);" onClick={() => updatePokemon(pokemon.name as string | number)} className="search-history-result">
                 {pokemon.name}
@@ -68,11 +72,26 @@ export default function Index() {
       </div>
       <div className="pokedex">
         <div className="pokedex-device">
+          <div className="pokedex-controls">
+            <div className="pokedex-bubble" />
+            <div className="pokedex-red" />
+            <div className="pokedex-yellow" />
+            <div className="pokedex-green" />
+          </div>
           <div className="pokemon-img">
             {pokemon && <img src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${String(pokemon?.id).padStart(3, '0')}.png`} alt="Pokemon" />}
           </div>
           <div className="pokemon-name">
             {pokemon && pokemon.name}
+          </div>
+          <div className="pokedex-botton-controls">
+            <div className="pokedex-buttons">
+              <div className="pokedex-top-btn" />
+              <div className="pokedex-left-btn" />
+              <div className="pokedex-right-btn" />
+              <div className="pokedex-bottom-btn" />
+            </div>
+            <div className="pokedex-speaker" />
           </div>
         </div>
         <div className="pokedex-cover">
@@ -84,6 +103,11 @@ export default function Index() {
               </>
             )}
           </div>
+          <div className="pokedex-blue-btns">
+            {[...Array(15)].map(btn => <div className="pokedex-blue-btn" />)}
+          </div>
+          <div className="pokedex-white-btns" />
+          <div className="pokedex-yellow-btn" />
           <div className="pokemon-type">
             {pokemon && (
               <>

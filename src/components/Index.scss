@@ -22,7 +22,6 @@ $pokemonStatsBorder: #000;
 .pokedex-device {
     background-color: $pokedexBgColor;
     border: 3px solid $pokedexBorderColor;
-    padding: 20px;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     border-bottom-left-radius: 8px;
@@ -31,6 +30,54 @@ $pokemonStatsBorder: #000;
     gap: 10px;
     flex-direction: column;
     align-items: center;
+}
+
+.pokedex-controls {
+    display: flex;
+    align-self: flex-start;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    border-bottom: 5px solid black;
+    padding: 20px;
+    box-sizing: border-box;
+
+    .pokedex-bubble {
+        background-color: #7ca9f7;
+        border: 3px solid black;
+        width: 60px;
+        height: 60px;
+        border-radius: 100%;
+        box-shadow: inset 0 0 0 2px white;
+        margin-right: 20px;
+    }
+
+    .pokedex-red {
+        background-color: red;
+        border: 3px solid black;
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+        box-shadow: inset 0 0 0 2px white;
+    }
+
+    .pokedex-yellow {
+        background-color: yellow;
+        border: 3px solid black;
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+        box-shadow: inset 0 0 0 2px white;
+    }
+
+    .pokedex-green {
+        background-color: green;
+        border: 3px solid black;
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+        box-shadow: inset 0 0 0 2px white;
+    }
 }
 
 .pokedex-cover {
@@ -44,7 +91,10 @@ $pokemonStatsBorder: #000;
     grid-row: 2 / 5;
     display: grid;
     grid-template-areas: "stats stats"
+        "buttons buttons"
+        "whiteBtns yellowBtn"
         "type number";
+    grid-template-rows: repeat(4, 1fr);
     gap: 10px;
 }
 
@@ -142,4 +192,111 @@ img {
 
 .search-history-result {
     display: block;
+}
+
+.pokedex-botton-controls {
+    display: flex;
+    justify-content: space-between;
+    gap: 100px;
+}
+
+.pokedex-blue-btns {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 5px;
+    grid-area: buttons;
+}
+
+.pokedex-blue-btn {
+    background-color: blue;
+    border: 3px solid black;
+}
+
+.pokedex-buttons {
+    display: grid;
+    width: 100px;
+    height: 100px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    padding: 0 0 20px;
+
+    &:before {
+        content: "";
+        background-color: #666;
+        grid-column: 2;
+        grid-row: 2;
+    }
+}
+
+.pokedex-speaker {
+    background-color: #666;
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    border: 3px solid black;
+}
+
+.pokedex-top-btn {
+    background-color: #666;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-left: 3px solid black;
+    border-top: 3px solid black;
+    border-right: 3px solid black;
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.pokedex-left-btn {
+    background-color: #666;
+    border-bottom: 3px solid black;
+    border-top: 3px solid black;
+    border-left: 3px solid black;
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.pokedex-right-btn {
+    background-color: #666;
+    border-bottom: 3px solid black;
+    border-top: 3px solid black;
+    border-right: 3px solid black;
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.pokedex-bottom-btn {
+    background-color: #666;
+    border-bottom: 3px solid black;
+    border-left: 3px solid black;
+    border-right: 3px solid black;
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.pokedex-yellow-btn {
+    background-color: yellow;
+    width: 50px;
+    height: 50px;
+    border: 3px solid black;
+    grid-area: yellowBtn;
+    border-radius: 100%;
+    margin-left: auto;
+}
+
+.pokedex-white-btns {
+    grid-area: whiteBtns;
+    display: flex;
+    gap: 10px;
+
+    &:before,
+    &:after {
+        content: "";
+        display: block;
+        background-color: white;
+        width: 50px;
+        height: 50px;
+        border: 3px solid black;
+    }
 }

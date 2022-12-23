@@ -1,11 +1,24 @@
-import { GET_POKEMON, GET_POKEMONS } from "./actionTypes";
+import * as actionTypes from "./actionTypes";
+import store from "./reducers";
 
-export interface Action<T, P> {
-    readonly type: T;
-    readonly payload?: P;
+export type Pokemon = {
+    id: number;
+    name: string;
+    weight: number;
+    height: number;
+    types: {
+        type: {
+            name: string
+        }
+    }[];
 };
 
-export type GetPokemon = Action<typeof GET_POKEMON, void>;
-export type GetPokemons = Action<typeof GET_POKEMONS, void>;
+export interface PokedexState {
+    error?: boolean;
+    history: Pokemon[];
+    isLoading: boolean;
+    pokemon?: Pokemon;
+};
 
-export type Actions = GetPokemon | GetPokemons;
+export type Actions = keyof typeof actionTypes;
+export type RootState = ReturnType<typeof store>;
